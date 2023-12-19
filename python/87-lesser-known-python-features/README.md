@@ -36,4 +36,57 @@ This is also useful when you want help on something that’s hard to search for,
 > help 함수는 "string", "object" 또는 어떤 형태의 데이터든 입력할 수 있습니다. Class Instance의 경우,
 > 모든 부모 Class의 함수들을 모아서, 어떤 Class들이 상속 구조를 가지는 지 설명한다.
 > 이 기능을 Python Doc에서 검색하기 어려운 정보를 빠르게 확인할 때 유용하다.
-> ex : or 
+> ex : or
+
+### 7. attrgetter and itemgetter
+if you need to sort a list of objects by a sepcific property of those objects, you can use `attrgetter` (when the value you're after is an attribute, e.g. for class instances) or `itemgetter` (when the value you're after is an index or ditionary key).
+
+>  list 객체를 특정 속성으로 정렬해야할 때, `attrgetter` (사용할 값이 attribute 일때, 예 : class instances) 또는 `itemgetter` (List의 Index 도는 Dictionary의 key를 하용할 때)를 이용할 수 있습니다.
+
+For example, to sort a list of dicts by the `score` key of the dicts:
+
+> 아래의 예제는, Ditionary를 값으로 가지는 List를 Dictionary의 `score` 키로 정렬합니다.
+
+``` python
+for operator import itemgetter
+scores = [
+    {"name": "Alice", "score": 12},
+    {"name": "Bob", "score": 7},
+    {"name": "Charlie", "score": 17}
+]
+
+scores.sort(key=itemgetter("score"))
+
+assert list(map(itemgetter("name"), scores)) == ["Bob", "Alice", "Charlie"]
+
+```
+
+`attrgetter` is similar, used when you would otherwise use dot notation. This can do nested access too, such as `name.first` in the example below:
+
+> `attrgetter`도 비슷하지만 다른 점은 `내부 참조`가 가능하다는 것 입니다. 아래 예제의 `name.first` 처럼 사용할 수 있습니다.
+
+``` python
+from operator import attrgetter
+from typing import NamedTuple
+
+class Name(NamedTuple):
+    first: str
+    last: str
+
+class Person(NamedTuple):
+    name: Name
+    height: float
+
+people = [
+    Person(name=Name("Gertrude", "Stein"), height=1.55),
+    Person(name=Name("Shirley", "Temple"), height=1.57),
+]
+
+first_names = map(attrgetter("name.first"), people)
+
+assert list(first_names) == ["Gertrude", "Shirley"]
+```
+
+There's also a `methodcaller` that does what you might guess.
+
+> 기능의 존재를 예측하고 실행시킬 수 있는 `methodcaller`도 있습니다. 
