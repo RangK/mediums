@@ -89,4 +89,75 @@ assert list(first_names) == ["Gertrude", "Shirley"]
 
 There's also a `methodcaller` that does what you might guess.
 
-> 기능의 존재를 예측하고 실행시킬 수 있는 `methodcaller`도 있습니다. 
+> 기능의 존재를 예측하고 실행시킬 수 있는 `methodcaller`도 있습니다.
+
+### 8. Operators as functions
+All the familiar operators like `+`, `<`, `!=` have functional equivalents in the `operator` module. These are usefull if you're iterating over collections, for example looking for a mismatch between two lists using `is_not`:
+
+> `+`, `<`, `!=`와 같은 모든 operator(연산자)들은 `operator` module 안에 동일한 기능을 하는 함수들이 존재합니다.
+> 아래의 예는 두 List 객체를 비교해 서로 다른 값을 찾는 `is_not` 함수 사용을 보입니다.
+
+``` python
+import operator
+
+list1 = [1, 2, 3, 4]
+list2 = [1, 2, 7, 4]
+matches = list(map(operator.is_not, list1, list2))
+
+assert matches == [False, False, True, False]
+```
+
+### 9. Sorting a dictionary by its values
+You can use `key` to sort a dict by its values. In this case, the function that you pass to `key` will be called with each key of the dict and return a value, which is what the `get` method of a dictionary does.
+
+> Sorted 함수를 이용해 Dict 객체를 정렬할 때, 정렬 기준으로 `key` parameter를 사용할 수 있습니다. 이 경우에 `key` parameter로 전달하는 함수는 Dict 객체의 `key`를 입력 받고 해당하는 `value`를 반환해야 합니다. Dict객체에서 이 역할을 하는 함수가 `get` method 입니다.
+
+``` python
+my_dict = {
+    "Plan A": 1,
+    "Plan B": 3,
+    "Plan C": 2
+}
+
+my_dict = {key: my_dict[key] for key in sorted(my_dict, key=my_dict.get)}
+assert list(my_dict.keys()) == ["Plan A", "Plan C", "Plan B"]
+```
+
+### 10. Create a dict from tuples
+`dict()` can take a sequence of tuples of key/value pairs. So if you have lists of keys and values, you can zip them together to turn them into a dictionary:
+
+> `dict()` 함수는 key와 value을 쌍으로 가지는 Tuple(or List)의 목록을 사용해서 Dict 객체를 만듭니다. 만약 key와 value에 해당하는 값을 각각 List 객체로 가지고 있다면 아래의 예 처럼 `zip`함수를 사용할 수 있습니다.
+
+``` python
+keys = ["a", "b", "c"]
+vals = [1, 2, 3]
+
+assert dict(zip(keys, vals)) == {"a": 1, "b": 2, "c": 3}
+# Append
+assert dict([["a", 1], ["b", 2], ["c", 3]]) == {"a": 1, "b": 2, "c": 3}
+```
+
+### 11. Combining dicts with **
+You can combine dictinoaries by using the `**` operator to unpack the dicts into the body of a dict literal:
+
+> Dict 객체를 하나의 Dict 객체의 literal 값으로 만들기 위해 `**` operator를 사용할 수 있습니다.
+
+``` python
+sys_config = {
+    "Option A": True,
+    "Option B": 13
+}
+
+user_config = {
+    "Option B": 33,
+    "Option C": "yes"
+}
+
+config = {
+    **sys_config,
+    **user_config,
+    "Option 12": 700
+}
+```
+
+
