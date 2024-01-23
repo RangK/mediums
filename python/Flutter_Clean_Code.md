@@ -231,3 +231,35 @@ class Dependencies {
   // Initialize dependencies
 }
 ```
+
+## Test-Driven Development (TDD):
+Writing tests for your code before writing the code itself, 
+to ensure that the code behaves as expected and to catch any potential issues early in the development process.
+
+> 코드 자체를 작성하기 전에 테스트를 작성하는 것은 그 코드가 예상대로 동작하고, 여러가지 어떤 잠재적 Issue들을 개발 단계에서 확인할 수 있도록 해줍니다.
+
+``` Dart
+// Example of TDD in Flutter
+
+// Bad practice - No tests
+class Calculator {
+  int add(int a, int b) {
+    return a + b;
+  }
+}
+```
+``` Dart
+// Good practice - Writing tests first
+class Calculator {
+  int add(int a, int b) {
+    return a + b;
+  }
+}
+
+void main() {
+  test('Test addition', () {
+    Calculator calculator = Calculator();
+    expect(calculator.add(2, 3), 5);
+  });
+}
+```
