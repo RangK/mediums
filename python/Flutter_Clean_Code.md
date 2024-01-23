@@ -1,3 +1,6 @@
+원본글 : https://medium.com/@santhosh-adiga-u/flutter-clean-code-ba4df36cb40c
+저자 : Santhosh Adiga U
+
 ## Introduction:
 Clean code is essential in every programming language to make the code more readable, maintainable, and understandable.\
 The same is true for Flutter. Clean code practices in Flutter are the best way to ensure that your code is easy to understand,\
@@ -90,6 +93,7 @@ For example, separating UI components, business logic, and data access logic int
 > 각 Class 와 Function는 한 가지 책임만을 가져야 합니다. 여러가지 작업에 대한 책임을 가져서는 안됩니다.
 > 예를 들어, UI 커포넌트들과 Business Logic, Data Access Logic을 여러개의 Class로 분리합니다.
 
+> Bad Code
 ``` Dart
 // Example of SRP in Flutter
 
@@ -110,7 +114,10 @@ class CounterScreen extends StatefulWidget {
     return Text('Count: $count');
   }
 }
+```
 
+> Clean Code
+``` Dart
 // Good practice - Separating UI component, business logic, and data access
 class CounterScreen extends StatelessWidget {
   final int count;
@@ -145,5 +152,82 @@ class CounterRepository {
     // Data access logic
     // Save count to external source
   }
+}
+```
+
+## Modularization:
+Breaking down the app into smaller, reusable, and independent modules/components that are easier to understand, maintain, and test. 
+For example, separating UI components, business logic, data access logic, and dependencies into separate modules/packages.
+
+> 프로그램을 더 작고, 재사용 가능하며 서로 독립적인 Module 또는 Component들로 나누는 것은 이해하고, 관리하고, 테스트하기 쉽게 만들어 줍니다.
+> 예를 들어, UI Components, Business Logic, Data Access Logic와 의존성들을 나누어 별개의 Module과 Package로 만듭니다.
+
+``` Dart
+// Example of modularization in Flutter
+
+// Bad practice - Everything in the same file
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      // App configuration
+    );
+  }
+  
+  // UI components
+  Widget buildHomePage() {
+    // Home page UI
+  }
+  
+  // Business logic
+  void fetchUserData() {
+    // Fetch user data
+  }
+  
+  // Data access logic
+  void saveUserData() {
+    // Save user data
+  }
+  
+  // Dependencies
+  void _initializeDependencies() {
+    // Initialize dependencies
+  }
+}
+```
+``` Dart
+// Good practice - Separating modules/components into separate files
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      // App configuration
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Home page UI
+  }
+}
+
+class UserDataBloc {
+  // Business logic
+  void fetchUserData() {
+    // Fetch user data
+  }
+}
+
+class UserDataRepository {
+  // Data access logic
+  void saveUserData() {
+    // Save user data
+  }
+}
+
+class Dependencies {
+  // Initialize dependencies
 }
 ```
