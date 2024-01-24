@@ -263,3 +263,58 @@ void main() {
   });
 }
 ```
+
+## Use the Proper Flutter Architecture:
+The Flutter framework supports several architectures, such as MVC, MVP, MVVM, and Clean Architecture. 
+Choose the right architecture for your project based on its complexity and requirements.
+Use the Flutter Bloc library to implement Clean Architecture in your project.
+
+> Flutter Framework는 다양한 Architecture(e.g MVC, MVP, MVVM, Clean Arch)를 지원합니다.
+> 복잡도와 요구사항을 기반으로 올바른 Architecture를 선택해야 합니다.
+> Flutter Bloc Library 사용해서 당신의 Project를 Clean Archi로 구현할 수 있습니다.
+
+Here are some ways in which Bloc can help implement Clean code in a Flutter app:
+
+> Bloc을 사용해 Flutter App에 Clean Code를 구현하는 방법 몇 가지를 소개합니다.
+
+Separation of concerns: Bloc allows you to separate the business logic and presentation logic of your app into distinct classes. 
+You can create separate bloc classes for handling different aspects of your app’s functionality, such as authentication, data fetching, and state management. 
+This helps in keeping your codebase modular and maintainable.
+
+> Separation of concerns(관심사 분리) : Bloc을 사용해 Business Logic과 Presentation Logic을 서로 다른 Class로 분리할 수 있습니다.
+> 그리고 프로그램(App)의 기능들을 서로 다른 관점으로 제어하할 수 있도록 bloc class를 분리시킬 수 있습니다. 예로 인증, 데이터 수집, 상태 관리 등...
+> SoC는 당신의 코드의 모듈성과 유지보수성을 유지하는데 도움을 줍니다.
+
+Single Responsibility Principle (SRP): Bloc enforces the SRP, one of the principles of Clean Architecture, by allowing you to define separate blocs for different responsibilities. Each bloc can have a single responsibility, such as handling state management for a particular UI component or managing data fetching for a specific feature. This makes it easier to understand and manage the logic for each individual feature or component in your app.
+
+> Single Responsibility Principle (단일 책임 원칙) : 다른 책임에 따라 각각의 Bloc들을 분리 정의하는 것으로 Clean Archi의 원칙 중 하나인 SRP를 확보할 수 있게 해줍니다.
+> 예를 들어 특정 UI Component의 상태 관리를 제어하거나, 특정 Feature의 Data Fetching 관리하는 책임을 각각의 Bloc이 가지도록 할 수 있습니다.
+> 이 방법은 각 Feature 와 Component에 대한 Logic을 이해하고 관리하는 것을 더 쉽게 만들어 줍니다. 
+
+Dependency Inversion Principle (DIP): Bloc encourages the use of dependency injection, which is a key principle of Clean Architecture. 
+You can inject dependencies into your bloc classes, making it easy to swap out implementations for testing or changing requirements. 
+This allows you to decouple your business logic from external dependencies, such as APIs or databases, making your code more flexible and testable.
+
+> Dependency Inversion Principle (의존성 역전) : Bloc은 Dependency Injection(의존성 주입, Aka. DI)의 사용을 적극 권장합니다. 이 기술은 Clean Arch의 핵심 원칙이죠.
+> 테스트 또는 요구사항 변경을 위해 구현부의 변경이 발생 했을 때 이 문제를 쉽게 해결 할 수 있도록 bloc class들에 의존성을 주입할 수 있습니다.
+> DI는 외부 의존성들로 부터 Business Logic을 분리시킬 수 있습니다.(예를 들어 APIs, Database) Business Logic의 분리는 코드를 더 유연하고 테스트 가능한 상태로 만들어 줍니다.
+
+Unidirectional data flow: Bloc follows the unidirectional data flow pattern, where the UI sends events to the bloc, 
+the bloc processes the events and updates the state, and the UI reacts to the state changes. 
+This clear flow of data helps in maintaining a predictable and manageable state in your app, 
+and makes it easier to reason about the flow of data and business logic.
+
+> Unidirectional data flow (단방향 데이터 흐름) : Bloc은 단방향 데이터 흐름 원칙을 따릅니다. UI가 bloc으로 이벤트를 전달하고, bloc이 event를 처리한 후 상태를 업데이트 합니다.
+> UI는 상태 변화를 반영합니다.
+> 정리 : UI -- Event --> bloc -- Processing --> New State -- Update --> UI
+> 명확한 데이터 흐름은 관리가능하고 예측가능한 상태를 유지할 수 있도록 만들어 줍니다.
+> 그리고 Business Logic과 데이터 흐름의 원인을 쉽게 파악할 수 있습니다.
+
+Testing: Bloc makes it easier to write unit tests for your business logic 
+because it provides clear separation of concerns and follows the principles of Clean Architecture.
+You can write unit tests for each bloc independently, mocking the dependencies, and testing the expected behavior of each bloc in isolation.
+This allows for comprehensive testing of your app’s business logic, leading to more reliable and maintainable code.
+
+> 테스트팅(Testing) : Bloc은 Business Logic의 Unit Test(단위테스트)를 작성하는 것을 쉽게 만들어 줍니다. 이유는 Bloc을 사용하게되면 관심사 분리가 명확해지고 Clean Arch 원칙을 잘 따르게 되기 때문입니다.
+> 각 bloc들을 독립적으로 테스트하는 단위 테스트를 작성할 수 있고, 의존성을 모의로 주입하거나 각 Bloc의 기대 행동을 독립적으로 테스트 할 수 있습니다.
+> 프로그램의 Business logic의 testing을 이해하고 더 높은 신뢰성과 유지보수성을 가지는 코드를 만들어 낼 수 있습니다.
