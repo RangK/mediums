@@ -318,3 +318,95 @@ This allows for comprehensive testing of your app’s business logic, leading to
 > 테스트팅(Testing) : Bloc은 Business Logic의 Unit Test(단위테스트)를 작성하는 것을 쉽게 만들어 줍니다. 이유는 Bloc을 사용하게되면 관심사 분리가 명확해지고 Clean Arch 원칙을 잘 따르게 되기 때문입니다.
 > 각 bloc들을 독립적으로 테스트하는 단위 테스트를 작성할 수 있고, 의존성을 모의로 주입하거나 각 Bloc의 기대 행동을 독립적으로 테스트 할 수 있습니다.
 > 프로그램의 Business logic의 testing을 이해하고 더 높은 신뢰성과 유지보수성을 가지는 코드를 만들어 낼 수 있습니다.
+
+Here’s an example of how you can use Bloc in Flutter to demonstrate Clean code:
+
+``` dart
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+// Event
+class CounterEvent {}
+
+// State
+class CounterState {
+  final int count;
+
+  CounterState(this.count);
+}
+
+// Bloc
+class CounterBloc extends Bloc<CounterEvent, CounterState> {
+  CounterBloc() : super(CounterState(0));
+
+  @override
+  Stream<CounterState> mapEventToState(CounterEvent event) async* {
+    if (event is IncrementEvent) {
+      yield CounterState(state.count + 1);
+    } else if (event is DecrementEvent) {
+      yield CounterState(state.count - 1);
+    }
+  }
+}
+
+// Usage in Flutter Widget
+class CounterWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => CounterBloc(), // Initialize Bloc in create function
+      child: CounterView(),
+    );
+  }
+}
+
+class CounterView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final counterBloc = BlocProvider.of<CounterBloc>(context); // Access Bloc using BlocProvider
+
+    return Scaffold(
+      appBar: AppBar(title: Text('Counter')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Count: ${counterBloc.state.count}'),
+            ElevatedButton(
+              onPressed: () => counterBloc.add(IncrementEvent()), // Add event to Bloc
+              child: Text('Increment'),
+            ),
+            ElevatedButton(
+              onPressed: () => counterBloc.add(DecrementEvent()), // Add event to Bloc
+              child: Text('Decrement'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+In this example, the CounterBloc class implements the business logic for a simple counter feature. 
+It defines the events (CounterEvent) and states (CounterState) for the feature, and uses Bloc’s mapEventToState method to map events to state changes. 
+The UI component CounterScreen uses Bloc’s BlocProvider to listen to the state changes from the CounterBloc and update the UI accordingly.
+The CounterScreen only focuses on the presentation logic and delegates the business logic to the CounterBloc, demonstrating separation of concerns and SRP. 
+The data flows unidirectionally from the UI to the CounterBloc to update the state, following the principles of Clean code.
+
+> 이 예저에서 CounterBloc class는 simple counter feature에 대한 Business Logic을 구현하고 있습니다.
+> 그 Feature에 대한 이벤트(CounterEvent)와 상태(CounterState)를 선언하고 Bloc의 mapEventToState 함수를 사용해 State 변화에 대한 Event와 연결했습니다.
+> UI Component(CounterScreen)은 CounterBloc으로부터 상태 변화를 듣고, 각각의 UI를 업데이트하기 위해 BlocProvider를 사용했습니다.
+> CounterScreen은 Presentation Logic에만 집중하고, Business Logic은 CounterBloc에 위임하는 것으로 관심사 분리와 단일 책임 원칙을 설명(구현)하고 있습니다.
+> 데이터 흐름은 UI에서 CounterBloc으로만 흐르기 때문에 Clean Code 원칙을 잘 지키고 있습니다.
+
+This example showcases how Bloc can be used to implement Clean code principles in a Flutter app, providing a clear separation of concerns, maintaining SRP, and facilitating unidirectional data flow.
+
+> 이 예제에서 Bloc으로 Clean Code 원칙을 Fluter App에 구현하는 방법을 설명하고 있습니다. 관심사 분리, 단일 책임 원칙 유지, 데이터 흐름 단방향을 사용하는 것으로.
+
+Conclusion:
+Clean code practices in Flutter are essential for creating a maintainable and readable codebase. 
+Follow the Flutter naming conventions, use descriptive variable and function names, use proper indentation and formatting, use comments to explain the code, and use the proper Flutter architecture. By following these best practices, your Flutter code will be easy to understand and maintain.
+
+> 결론:
+> Flutter에서 Clean Code의 실질적 사용은 유지보수성과 가독성 코드기반을 만드는 것에 필수적입니다.
+> Flutter naming convention을 따르고, 서술적 변수 및 함수이름을 사용하거나, 적절한 indentation과 formatting을 사용하는 것, 코드 설명을 위해 주석을 달고, 적절한 Flutter Architecuture를 활용하는 것
+> 이런 최고의 습관들을 지키는 것은 당신의 Flutter Code를 쉽게 이해하고 유지보수성을 좋게 만들어 줄 것 입니다.
