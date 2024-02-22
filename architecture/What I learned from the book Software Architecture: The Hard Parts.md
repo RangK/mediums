@@ -186,4 +186,14 @@ Here we have the following patterns:
 * > 이벤트 기반 패턴 : Topic 또는 Event stream에 이벤트르 전달할 수 있는 발행/구독 메시징 모델이 필요할 때.
 
 
+[Data access patterns]
+These patterns mainly discuss accessing data broken into separate databases or schemas owned by different services.
+Here, we have other patterns:
+> "Data Access Patterns"은 주로 논하는 것은 서로 다른 서비스들에 종속된 별도의 데이터베이스나 스키마들에 분산되어 있는 데이터에 접근하는 방법이다.
+> 여기 내용을 확인해보자
 
+* Inter-service calls. It is used when one service needs to ask the owning service for the data it needs. This simple pattern has many disadvantages, including networking, scalability, and security issues. Also, it is not fault-tolerant.
+* > 내부 서비스 호출 : 내가 소유한 서비스에 필요한 데이터를 획득하기 위해 요청해야할 경우 사용하게 됩니다. 이 간단한 패턴은 많은 단점(통신, 확장성, 보안 사항)을 가지고 있습니다. 또한 장애 허용 개념과 맞지 않다.
+* Column schema replication. Here, we keep a local copy of other service data. It has good performance but could have data consistency issues.
+* Duplicate caching pattern. It is similar to the previous pattern, but we keep data in memory here. It allows good performances and fault tolerance but is not good for high data volumes.
+* Data domain pattern. This pattern uses a shared database with joint ownership between services. It has good performance and fault tolerance, but dealing with data ownership and security is challenging.
