@@ -168,6 +168,22 @@ In this group, we have different kinds of code reuse patterns:
 > * 공유 서비스 : 공유 기능을 해결하는 가장 일반적인 접근 방식입니다. 공유 기능이 종종 변경되는 경향이 있는 다중 언어(polyglot) 환경에서 자주 사용됩니다. 공유 기능은 공유 라이브러리 보다 더 낮은 성능과 확장성을 가집니다.
 
 Sidecars and service mesh. They are good choices when we have cross-cutting concerns.
+> [continue]
+
+Distribute transactions
+> [데이터 처리 분산]
+
+They occur when we have requests containing multiple updates by different services, and they don’t support ACID properties.
+Here we have the following patterns:
+> 다른 서비스들이 보낸 여러 개의 업데이트가 포함된 요청들이 있고, 그 요청을 처리하는 서비스가 ACID 속성을 지원하지 않는 다면
+> 아래 패턴들을 사용할 수 있습니다.
+
+* Background synchronization. Used when we have independent services that periodically ched data sources and keep them in sync.
+* > Background Synchronization : 독립적인 서비스들이 정기적으로 보관된 데이터 소스를 동기화되도록 유지해야 할 때 사용
+* Orchestrated request-based. When one service is in charge of making synchronous requests to other services.
+* > 요청 기반 합동 처리(Ochestrated) : 하나의 서비스가 다른 서비스들에 동기화 요청을 전달할 책임을 가지고 있을 때
+* Event-based pattern. When we need to have pub/sub-messaging models to post events to a topic or event stream.
+* > 이벤트 기반 패턴 : Topic 또는 Event stream에 이벤트르 전달할 수 있는 발행/구독 메시징 모델이 필요할 때.
 
 
 
