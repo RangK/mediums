@@ -86,6 +86,8 @@ Tactical forking (if the monolith is a big ball of mud): copy the whole monolith
 
 > 2. 전술적 분기(Tactical Forking) (단일 구조가 모듈의 구조 없이 엄청 큰 경우) : 단일 구조 전체를 복사하고 불필요한 부분들을 삭제 하는 것 입니다. 예전 버전을 사용하는 Poxy와 분기해서 만든 새로운 프로그램과 2개의 팀을 만듭니다. 각 팀은 CodeBase에서 복사 후 그들이 불필요한 것들을 삭제합니다. 궁극적인 목표는 분기한 프로그램에서 정제된 Component들을 가지는 것 입니다. 이 과정은 많은 의존성을 가지고 있는 component들을 추출하는 것보다 훨씬 쉽습니다.
 
+![image](https://github.com/RangK/mediums/assets/1219362/2b54c139-a0c3-484f-9dac-ffe8e8c42a18)\
+*The decision tree for selecting a decomposition approach (Credits: Authors of the book “Software Architecture: The Hard Parts”)*
 
 [ Service Granularity ]
 
