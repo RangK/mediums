@@ -234,14 +234,27 @@ A saga is a sequence of local transactions that trigger the next update. The boo
 ![image](https://github.com/RangK/mediums/assets/1219362/1ef47c35-0501-4a84-ad37-f47d05e48f48)
 
 ❌ The things I missed in the book
+> ❌  이 책에서 놓치고 있는 부분들
 There are a few things I would expect to have in such a book, namely:
+> 나는 이런 종류의 책에는 의래 기대하는 몇 가지 것들이 있습니다.
 
-Limited code examples. While the book offers conceptual understanding and practical patterns, it could benefit from more concrete code examples. Showing real-world implementations of the discussed concepts would further solidify the learning experience.
-No real-life examples. The book follows Sysops SAGA’s fictional story, whereas a real-life example would be more worthwhile. In this way, some things would sound artificial or forced.
-Limited scope on non-distributed topics. While distributed architectures are crucial, neglecting other aspects like security, performance, and scalability creates a somewhat incomplete picture. Architects often need to juggle these considerations alongside distribution, and the book could benefit from including dedicated sections on them.
-No structured approach. I missed the structured approach. It started well with essential concepts, such as modularity and decomposition, and then twelve immediately into components and pulled apart data. Then, it went to service granularity and reuse patterns and data ownership and access patterns later.
-Limited discussion of alternative paradigms. The book primarily focuses on microservices and related distributed architectures. While this is a dominant trend, exploring alternative paradigms like serverless architectures or event-driven design could provide a more balanced perspective.
-The book is a good resource for software architects and engineers interested in the complexities of distributed systems from a theoretical standpoint. However, readers should know its limitations, such as the lack of detailed code examples and potentially overwhelming depth for beginners.
+* Limited code examples. While the book offers conceptual understanding and practical patterns, it could benefit from more concrete code examples. Showing real-world implementations of the discussed concepts would further solidify the learning experience.
+* > 제한적 코드 예제 : 책에서 여러 가지 개념적인 이해와 실용전 패턴들을 설명하면서 많은 구체적인 코드 예제를 함계 사용하는 것이 더 이득일 수 있음. 논의된 개념들을 실제 구현되는 것을 보여주는 건 학습 경험을 더 단단하게 만들어 줄 수 있습니다.
+
+* No real-life examples. The book follows Sysops SAGA’s fictional story, whereas a real-life example would be more worthwhile. In this way, some things would sound artificial or forced.
+* > 현실적인 예제 부재 : 이 책은 Syspos의 SAGA라는 꾸며진 얘기를 사용하고 있지만, 현실적인 예제가 더 가치있다고 생각 합니다. 현실적이지 않은 예제들은 상당히 인공적이거나 공감되지 않을 수 있습니다.
+
+* Limited scope on non-distributed topics. While distributed architectures are crucial, neglecting other aspects like security, performance, and scalability creates a somewhat incomplete picture. Architects often need to juggle these considerations alongside distribution, and the book could benefit from including dedicated sections on them.
+* > 제한적 비 분산 주제 : 분산 구조들은 매우 중요하게 다루어진 반면에 보안, 성능, 확장성 같은 영역이 설명되지 않는 것은(neglecting) 불완전한 그림이 될 수 있습니다. 아키텍트들은 배포와 함께 이런 여러가지 것들을 두고 저글링해야하는 때가 종종 있습니다. 그래서 . 이 채개은 그런 것들을 설명하는데 더 많은 섹션들을 사용하는 것에 이점이 있었을 겁니다.
+
+* No structured approach. I missed the structured approach. It started well with essential concepts, such as modularity and decomposition, and. then twelve immediately into components and pulled apart data. Then, it went to service granularity and reuse patterns and data ownership and access patterns later.
+> * 비 구조적 접근 : 나는 구조적 접근을 놓쳤습니다. 필수적인 개념들(예 : 모듈성, 분해)과 함께 시작은 좋았지만, 이후에 곧바로 12개는 컴포넌트들과 데이터 부분으로 분리했습니다. 그런 다음 서비스 세분화 및 재사용 패턴, 데이터 소유권 및 액세스 패턴을 나중에 다루었습니다.
+
+* Limited discussion of alternative paradigms. The book primarily focuses on microservices and related distributed architectures. While this is a dominant trend, exploring alternative paradigms like serverless architectures or event-driven design could provide a more balanced perspective.
+> 대안적인 패러다임의 논의 부족 : 이 책의 핵심 주제는 Microservice와 분산 구조에 관한 것입니다. 이런 주제들이 요즘 최대 관심사이긴 하지만, 다른 대안적인 패러다임(예 : Serverless Architexture, Event-driven ...)을 탐색해보는 것은 견해에 대한 균형을 잡아 줄 수 있습니다.
+
+* The book is a good resource for software architects and engineers interested in the complexities of distributed systems from a theoretical standpoint. However, readers should know its limitations, such as the lack of detailed code examples and potentially overwhelming depth for beginners.
+* > 이 책은 이론적인 관점에서 분산 시스템의 복잡성에 관해서 흥미가 있는 개발자나 아키텍트들에게 좋은 정보가 될 수 있습니다. 하지만 책을 읽는 사람이 얻을 수 있는 지식이 제한적으로 보입니다. (예 : 상세한 예제 코드 부족과 초보자에게 ??
 
 👍 Recommendation
 As a summary of this book, I would recommend it to:
