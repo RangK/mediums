@@ -195,5 +195,68 @@ Here, we have other patterns:
 * Inter-service calls. It is used when one service needs to ask the owning service for the data it needs. This simple pattern has many disadvantages, including networking, scalability, and security issues. Also, it is not fault-tolerant.
 * > 내부 서비스 호출 : 내가 소유한 서비스에 필요한 데이터를 획득하기 위해 요청해야할 경우 사용하게 됩니다. 이 간단한 패턴은 많은 단점(통신, 확장성, 보안 사항)을 가지고 있습니다. 또한 장애 허용 개념과 맞지 않다.
 * Column schema replication. Here, we keep a local copy of other service data. It has good performance but could have data consistency issues.
+* > Column Schema 복제 : 우리가 다른 서비스의 데이터를 복사해와서 가지고 있는 건, 좋은 성능을 가질 수 있지만 데이터 일관성 문제가 발생할 수 있습니다.
 * Duplicate caching pattern. It is similar to the previous pattern, but we keep data in memory here. It allows good performances and fault tolerance but is not good for high data volumes.
+* > 복제 캐싱 패턴 : 위에서 말한 패턴(Column Schema Replication)와 유사합니다. 차이점은 메모리에 데이터를 유지하고 있기 때문에 좋은 성능 및 실패 허용을 유지할 수 있지만 데이터 크기가 큰 경우 좋지 않다는 점입니다.
 * Data domain pattern. This pattern uses a shared database with joint ownership between services. It has good performance and fault tolerance, but dealing with data ownership and security is challenging.
+* > 데이터 도메인 패턴 : 이 패턴은 공유 데이터베이스를 사용하기 위해 Joint Ownership을 서비스들 사이에 가집니다.
+
+[Transactional sagas]
+A saga is a sequence of local transactions that trigger the next update. The book considers the following sagas:
+> [트랜젝션 sagas]
+> 하나의 Saga는 다음 업데이를 동작시키는 지역적 트랜젝션들의 나열된 묶음(Sequence)을 의미합니다. 이 책에서는 아래의 여러가지 Saga를 설명하고 있습니다.
+
+* Epic. The traditional one is called the Orchestrated Saga, as it has a coordinator. It uses synchronous communication and mimics the monolithic system. It’s best to avoid it.
+* > Epic Saga. 전통적으로 이것은 중재자(or 지휘자? : coordinator)를 가지고 있기 때문에 Orchestrated Saga라고 부릅니다. 동기적 통신을 사용하고 단일 구조 시스템을 모방합니다. 이 것을(트랜젝션 이슈) 피하는데 최선의 방법 입니다.
+
+* Phone Tag. It is similar to the Epic saga but without a coordinator. It is more complex. It is better for simple workflows that don’t have many common error conditions.
+* > Phone Tag : Epic Saga와 비슷하지만, 중재자(Coordinator)가 없습니다. 더 복잡하지만 workflow(처리 절차)가 단순하다면 더 나은 선택일 수는 있습니다.
+
+* Fairy Tale. Here, we have an orchestrator to coordinate requests, responses, and error handling, but it is not responsible for managing transactions done by domain services. This pattern appears in many microservice architectures.
+* > Fairy Tale : 우리는 요청들, 응답들, 오류 처리 등을 관리(중재)하는 합동 처리자(Ochestrator)를 가지고 있습니다. 하지만 각 도메인의 서비스에 의해 끝난 트랜젝션에 대한 관리 책임은 가지고 있지 않습니다. 이 패턴은 만많은 마이크로 서비스 구조들에서 사용되고 있습니다.
+
+* Time Travel. It uses synchronous communication and eventual consistency but a choreographed workflow (no central mediator). This pattern can implement the Chain of Responsibility design or the Pipes and Filters architecture style. 
+* > Time Travel : 동기적 통신과 이벤트 기반 일관성을 사용하지만 정형화된 workflow (중앙 대리자(또는 중재자)가 없는) 입니다. 이 패턴은 Pipe와 Filter 구조 스타일을 설계하거나 책임 연결(Chain of Responsibility)을 구현할 수 있는 패턴 입니다.
+
+* Fantasy Fiction. This pattern uses atomic consistency, asynchronous communication, and orchestrated coordination. It is used to improve Epic Saga’s performance, but it usually fails because synchronicity adds more complexity to the architecture around coordination.
+* > Fantasy Fiction : 이 패턴은 원자적 일관성과 비동기 통신,통제된 중재자(Ochestrated coordination)를 사용 합니다. Epic Saga의 성능을 향상 하는데 사용 하지만 보통 구조와 중재자에게 더 많은 복잡도를 동시에 가중하기 때문에 실패하게 됩니다.
+
+* Horror story. This pattern uses asynchronous communication, atomic consistency, and choreographed coordination. It’s a horrible combination because it combined coupling around the atomicity of the two loosest coupling styles, asynchronous and choreography.
+* > Hooror Story : 비동기 통신과 원자적 일관성, 정형화된 중재자를 사용 합니다. 가장 느슨한 두 가지 결합 스타일인 비동기식과 안무의 원자성을 중심으로 결합했기 때문에 이는 끔찍한 조합입니다.
+
+* Parallel. This pattern uses a mediator, suitable for complex workflows but uses asynchronous communication for better performance.
+* > Parellel (병행성) : 이 패턴은 중재자(Mediator)를 사용하고, 복잡한 절차에 적합하지만 더 나은 성능을 위해서는 비동기 통신을 사용 합니다.
+
+* Anthology Saga. It uses asynchronous communication, eventual consistency, and choreographed coordination, which means it uses message queues to send asynchronous messages to other services without orchestration. It doesn’t work well for complex workflows around resolving data consistency errors.
+*  Anthology Saga : 비동기 통신, 이벤트 일관성, 정형화된 조정 을 사용 합니다. 비동기 메시지를 다른 서비스들에 통제자없이 보내기위해서 메시지 큐를 사용한다는 의미 입니다.
+*  데이터 일관성 해결과 복잡한 절차에서 잘 동작하지 않습니다.
+
+![image](https://github.com/RangK/mediums/assets/1219362/1ef47c35-0501-4a84-ad37-f47d05e48f48)
+
+❌ The things I missed in the book
+There are a few things I would expect to have in such a book, namely:
+
+Limited code examples. While the book offers conceptual understanding and practical patterns, it could benefit from more concrete code examples. Showing real-world implementations of the discussed concepts would further solidify the learning experience.
+No real-life examples. The book follows Sysops SAGA’s fictional story, whereas a real-life example would be more worthwhile. In this way, some things would sound artificial or forced.
+Limited scope on non-distributed topics. While distributed architectures are crucial, neglecting other aspects like security, performance, and scalability creates a somewhat incomplete picture. Architects often need to juggle these considerations alongside distribution, and the book could benefit from including dedicated sections on them.
+No structured approach. I missed the structured approach. It started well with essential concepts, such as modularity and decomposition, and then twelve immediately into components and pulled apart data. Then, it went to service granularity and reuse patterns and data ownership and access patterns later.
+Limited discussion of alternative paradigms. The book primarily focuses on microservices and related distributed architectures. While this is a dominant trend, exploring alternative paradigms like serverless architectures or event-driven design could provide a more balanced perspective.
+The book is a good resource for software architects and engineers interested in the complexities of distributed systems from a theoretical standpoint. However, readers should know its limitations, such as the lack of detailed code examples and potentially overwhelming depth for beginners.
+
+👍 Recommendation
+As a summary of this book, I would recommend it to:
+
+Software architects and engineers working with distributed systems
+Developers interested in building and maintaining complex software applications
+Technical leads and managers responsible for making architectural decisions
+It is an excellent companion to the book “Monolith to Microservices,” by Sam Newman.
+It’s important to note that the book might be less suitable for:
+
+Beginners with limited experience in software architecture
+Individuals seeking in-depth knowledge of specific technologies
+Those looking for a prescriptive “how-to” guide for building distributed systems
+Thanks for reading, and stay awesome!
+
+To expand your knowledge and personal growth, subscribe to my free weekly newsletter with 23,000+ people: https://newsletter.techworld-with-milan.com.
+
+Originally published at https://newsletter.techworld-with-milan.com on February 8, 2023.
